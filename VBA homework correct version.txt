@@ -1,0 +1,61 @@
+Private Sub easy()
+
+    ' Declaring variables
+    Dim ticker As String
+    Dim totalvol As Double
+    Dim counter As Double
+    Dim Stock_Data_Row As Double
+    Dim year_open As Double
+    Dim year_close As Double
+    Dim lastRow As Double
+    Dim yearly_percentage As Double
+    
+    ' For ws in Worksheets
+    For Each ws In Worksheets
+    counter = 0
+    ' Initializing variables
+    Total_Vol = 0
+    Stock_Data_Row = 2
+
+    ws.Cells(1, 10).Value = "Ticker"
+    ws.Cells(1, 11).Value = "Yearly Change"
+    ws.Cells(1, 12).Value = "Yearly Percentage"
+    ws.Cells(1, 13).Value = "Total Stock Volume"
+   
+    ' Find last row in sheet
+    lastRow = Cells(Rows.Count, 1).End(xlUp).Row
+
+    For i = 2 To lastRow
+
+
+        If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+       
+            year_open = ws.Cells(i, 3).Value
+            year_close = ws.Cells(i, 6).Value
+            yearly_change = year_close - year_open
+            If year_open = 0 Then
+            ws.Range("L" & Stock_Data_Row).Value = "Undefined"
+            Else
+            yearly_percentage = year_close / year_open
+            ws.Range("L" & Stock_Data_Row).Value = yearly_percentage
+            End If
+            
+            
+            Total_Vol = Total_Vol + ws.Cells(i, 7).Value
+            ticker = ws.Cells(i, 1).Value
+            ws.Range("J" & Stock_Data_Row).Value = ticker
+            ws.Range("K" & Stock_Data_Row).Value = yearly_change
+            
+            ws.Range("M" & Stock_Data_Row).Value = Total_Vol
+            Stock_Data_Row = Stock_Data_Row + 1
+            Total_Vol = 0
+         Else
+            counter = counter + 1
+        End If
+    Next i
+    ' next ws
+    Next ws
+End Sub
+Sub Multiple_year_stock_data()
+
+End Sub

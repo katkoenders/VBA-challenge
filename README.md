@@ -1,2 +1,2 @@
 # VBA-challenge
-homework #2
+Stock market data is being analyzed. 
